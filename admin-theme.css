@@ -1,0 +1,66 @@
+/* admin-theme.css — global tokens used across admin */
+:root{
+  --accent:#2563eb;
+  --accent-weak: color-mix(in lab, var(--accent) 12%, transparent);
+
+  /* Light defaults */
+  --page:#f8fafc;
+  --card:#ffffff;
+  --text:#0f172a;
+  --muted:#64748b;
+  --border:rgba(2,6,23,.12);
+  --shadow-1:0 10px 30px -10px rgba(2, 6, 23, .15);
+  --shadow-2:0 18px 48px -16px rgba(2, 6, 23, .22);
+}
+:root[data-theme="dark"],
+:root[data-resolved-theme="dark"]{
+  --page:#0b1220;
+  --card:#0f172a;
+  --text:#e5e7eb;
+  --muted:#9aa4b2;
+  --border:rgba(255,255,255,.12);
+  --shadow-1:0 12px 36px -16px rgba(0,0,0,.45);
+  --shadow-2:0 24px 64px -24px rgba(0,0,0,.55);
+}
+
+/* Base surfaces */
+html,body{ background:var(--page); color:var(--text); }
+
+/* Common components */
+.card{
+  background:var(--card);
+  color:var(--text);
+  border:1px solid var(--border);
+  border-radius:16px;
+  box-shadow:var(--shadow-1);
+}
+.card:hover{ box-shadow:var(--shadow-2); }
+
+.admin-nav{
+  background:color-mix(in lab, var(--card) 82%, var(--page));
+  border-right:1px solid var(--border);
+  color:var(--text);
+}
+.admin-nav .links a{ color:var(--text); }
+.admin-nav .links a.active{
+  background:color-mix(in lab, var(--accent) 18%, transparent);
+  border:1px solid var(--accent-weak);
+}
+
+.brand-link,.group-label,.muted{ color:var(--muted); }
+
+.btn,.contact-btn{
+  background:var(--accent);
+  color:#fff;
+  border:1px solid color-mix(in lab, var(--accent) 35%, transparent);
+}
+.btn.secondary,.btn-outline{
+  background:transparent;
+  color:var(--text);
+  border:1px solid var(--border);
+}
+
+/* Smooth transitions when theme changes */
+:root,body,.admin-nav,.card,.btn,.links a{
+  transition: background-color .25s ease, color .25s ease, border-color .25s ease, box-shadow .25s ease;
+}

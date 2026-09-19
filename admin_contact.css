@@ -1,0 +1,222 @@
+/* =============== Contact Enquiries (admin) — THEME AWARE ===============
+   Requires admin_head_snippet.php + admin-theme.css to be loaded first.
+*/
+
+/* Local derivations from global tokens */
+:root{
+  --brand: var(--accent);
+  --brand-2: color-mix(in lab, var(--accent) 72%, #000);
+  --ring: 0 0 0 3px color-mix(in lab, var(--accent) 28%, transparent);
+  --chip: color-mix(in lab, var(--card) 92%, var(--page));
+}
+
+/* Layout — keep content narrow and centered */
+.wrap {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 28px 18px;
+  color: var(--text);
+}
+
+/* Page title spacing */
+.wrap > h1 { margin: 0 0 16px; color: var(--text); }
+
+/* Quick stat chips */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.stats .stat {
+  background: var(--card);
+  border: 1px dashed color-mix(in lab, var(--brand) 30%, transparent);
+  border-radius: 18px;
+  padding: 10px 14px;
+  color: var(--muted);
+  box-shadow: 0 10px 30px color-mix(in lab, #000 6%, transparent);
+}
+.stats .stat strong { color: var(--text); }
+
+/* Toolbar (search + filter + button) */
+.toolbar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  background: linear-gradient(
+    180deg,
+    var(--card) 0%,
+    color-mix(in lab, var(--card) 85%, var(--page)) 100%
+  );
+  border: 1px dashed color-mix(in lab, var(--brand) 30%, transparent);
+  border-radius: 20px;
+  padding: 12px;
+  margin: 10px 0 18px;
+  box-shadow:
+    0 20px 50px color-mix(in lab, #000 8%, transparent),
+    0 2px 8px color-mix(in lab, #000 4%, transparent);
+}
+.toolbar input[type="search"],
+.toolbar select {
+  flex: 1 1 auto;
+  min-width: 180px;
+  appearance: none;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 11px 12px;
+  color: var(--text);
+  outline: none;
+  transition: box-shadow .15s, border-color .15s;
+}
+.toolbar input[type="search"]:focus,
+.toolbar select:focus {
+  border-color: var(--brand);
+  box-shadow: var(--ring);
+}
+
+/* Buttons */
+.btn,
+.toolbar .btn {
+  background: linear-gradient(180deg, var(--brand) 0%, var(--brand-2) 100%);
+  color: #fff;
+  font-weight: 700;
+  border: 0;
+  border-radius: 28px;
+  padding: 12px 18px;
+  box-shadow:
+    0 18px 28px color-mix(in lab, var(--brand) 25%, transparent),
+    inset 0 -2px 0 color-mix(in lab, #000 8%, transparent);
+  transition: transform .08s ease, box-shadow .15s ease, filter .15s ease;
+}
+.btn:hover { filter: brightness(1.05) }
+.btn:active { transform: translateY(1px) }
+.btn.small { padding: 8px 12px; border-radius: 12px; font-weight: 600 }
+.btn.ghost {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 10px color-mix(in lab, #000 6%, transparent);
+}
+.btn.warn  { background: color-mix(in lab, #ef4444 70%, #dc2626); color:#fff; }
+
+/* Card for each enquiry */
+.card {
+  background: linear-gradient(
+    180deg,
+    var(--card) 0%,
+    color-mix(in lab, var(--card) 92%, var(--page)) 100%
+  );
+  border: 1px dashed color-mix(in lab, var(--brand) 28%, transparent);
+  border-radius: 22px;
+  padding: 18px;
+  box-shadow:
+    0 24px 60px color-mix(in lab, #000 8%, transparent),
+    0 2px 8px color-mix(in lab, #000 4%, transparent);
+  color: var(--text);
+}
+
+/* Header row inside card: title + actions */
+.row-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.row-top strong { font-size: 18px; color: var(--text); }
+
+/* Status pills */
+.pill,
+.pill-read,
+.pill-unread {
+  display: inline-block;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+}
+.pill-unread {
+  background: color-mix(in lab, #f59e0b 14%, var(--card));
+  color: #92400e;
+  border-color: color-mix(in lab, #f59e0b 40%, var(--border));
+}
+.pill-read {
+  background: color-mix(in lab, #22c55e 12%, var(--card));
+  color: #065f46;
+  border-color: color-mix(in lab, #22c55e 40%, var(--border));
+}
+
+/* Meta line (company • email • phone) */
+.meta { color: var(--muted); }
+.meta a {
+  color: var(--brand);
+  text-decoration: none;
+}
+.meta a:hover { text-decoration: underline; }
+
+/* Collapsible message */
+details {
+  border-top: 1px dashed var(--border);
+  margin-top: 10px;
+  padding-top: 10px;
+}
+details > summary {
+  list-style: none;
+  cursor: pointer;
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+details > summary::before {
+  content: "▸";
+  transform: translateY(1px);
+  transition: transform .15s ease;
+  color: var(--brand);
+}
+details[open] > summary::before { transform: rotate(90deg); }
+.message {
+  margin-top: 8px;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--chip);
+  border: 1px dashed var(--border);
+  padding: .6rem .7rem;
+  border-radius: 10px;
+}
+
+/* Pagination */
+.pagination {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  margin-top: 14px;
+}
+.pagination a,
+.pagination .current {
+  min-width: 34px; height: 34px; display: inline-grid; place-items: center;
+  border-radius: 12px; padding: 0 10px; text-decoration: none;
+  background: var(--card); border: 1px solid var(--border); color: var(--text);
+  box-shadow: 0 4px 10px color-mix(in lab, #000 4%, transparent);
+}
+.pagination a:hover { border-color: var(--brand); }
+.pagination .current {
+  background: color-mix(in lab, var(--brand) 12%, var(--card));
+  border-color: var(--brand);
+  color: var(--text);
+}
+
+/* Actions row */
+.actions { display:flex; gap:8px; align-items:center }
+
+/* Responsive tweaks */
+@media (max-width: 900px) {
+  .toolbar { flex-wrap: wrap }
+  .row-top { align-items: flex-start; flex-direction: column; gap: 10px }
+}
+
+/* Focus a11y */
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
+  border-color: var(--brand);
+}

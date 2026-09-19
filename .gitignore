@@ -1,0 +1,9 @@
+ai/secrets.php
+db_connection.php
+mail_config.php
+*.log
+uploads/
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

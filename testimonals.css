@@ -1,0 +1,182 @@
+/* ===== Page container utility ===== */
+.container {
+  width: min(1200px, 92%);
+  margin-inline: auto;
+}
+
+.section-pad { padding: 56px 0; }
+
+.section-head {
+  text-align: center;
+  margin-bottom: 28px;
+}
+.section-head h2 {
+  font-size: clamp(1.6rem, 1.2rem + 1.5vw, 2.2rem);
+  font-weight: 800;
+  color: #0f172a; /* slate-900 */
+  letter-spacing: .2px;
+}
+.section-head .muted {
+  color: #475569; /* slate-600 */
+  margin-top: 6px;
+}
+
+/* ===== Slim hero ===== */
+.hero-slim {
+  position: relative;
+  height: clamp(220px, 28vw, 340px);
+  overflow: hidden;
+  border-bottom: 1px solid rgba(15,23,42,.08);
+}
+.hero-slim img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: brightness(.75);
+}
+.hero-slim .hero-copy {
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  text-align: center; padding: 0 1rem;
+}
+.hero-slim h1 {
+  color: #fff;
+  font-size: clamp(1.6rem, 1.1rem + 2.2vw, 2.6rem);
+  margin: 0 0 .3rem;
+  text-shadow: 0 2px 14px rgba(0,0,0,.35);
+}
+.hero-slim p {
+  color: #e5ecff;
+  text-shadow: 0 2px 12px rgba(0,0,0,.35);
+  font-size: clamp(.95rem, .85rem + .5vw, 1.1rem);
+}
+
+/* ===== Cards & grid ===== */
+.grid {
+  display: grid;
+  gap: 20px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid rgba(15,23,42,.08);
+  box-shadow: 0 10px 30px -10px rgba(2, 6, 23, .15);
+  padding: 20px;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(37,99,235,.28);
+  box-shadow: 0 18px 48px -16px rgba(2, 6, 23, .22);
+}
+
+/* ===== Portfolios ===== */
+.portfolios {
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+}
+
+.portfolio-card h3 {
+  font-size: 1.2rem;
+  color: #0f172a;
+  margin-bottom: .35rem;
+}
+.portfolio-card h4 {
+  margin: 12px 0 6px;
+  font-size: 1rem;
+  color: #1e293b;
+}
+.portfolio-card p { color: #334155; line-height: 1.6; }
+
+.check-list {
+  margin: 0; padding: 0; list-style: none;
+}
+.check-list li {
+  display: flex; gap: 10px; align-items: flex-start;
+  color: #1f2937;
+  padding: 7px 0 7px 0;
+  position: relative;
+}
+.check-list li::before {
+  content: "✔";
+  color: #2563eb;
+  font-weight: 700;
+  margin-right: 8px;
+  line-height: 1.4;
+}
+
+/* ===== Customer Feedback ===== */
+.customer-feedback { border-top: 1px solid rgba(15,23,42,.06); }
+
+.feedback-grid {
+  grid-template-columns: repeat(auto-fit, minmax(500px, 2fr));
+}
+
+.feedback-card { padding: 22px; }
+
+.feedback-head {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 14px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.feedback-head img {
+  width: 130px; height: 130px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(37,99,235,.18);
+  background: #eef2ff;
+}
+.feedback-head h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  color: #0f172a;
+}
+.role { margin: 2px 0 6px; color: #475569; font-size: .92rem; }
+
+/* ===== Fix rating alignment & spacing in feedback cards ===== */
+.feedback-card .rating{
+  /* line starts aligned with the text column, not the avatar */
+  padding-left: calc(130px + 14px);   /* avatar width + gap from your .feedback-head */
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;                          /* space between stars and 4.4/5 */
+  white-space: nowrap;
+  margin-left: 0;                      /* cancel any earlier nudge */
+  line-height: 1.1;
+  color: #fbbf24; /* yellow/amber */
+
+}
+
+/* smaller avatar on narrow screens → adjust indentation */
+@media (max-width: 640px){
+  .feedback-card .rating{
+    padding-left: calc(80px + 14px);  /* match your mobile avatar size + gap */
+  }
+}
+
+
+
+
+blockquote {
+  margin: 8px 0 0;
+  color: #111827;
+  line-height: 1.65;
+  font-style: italic;
+  quotes: "“" "”" "‘" "’";
+}
+blockquote:before { content: open-quote; color: #94a3b8; font-size: 2rem; line-height: 0; margin-right: 4px; }
+blockquote:after  { content: close-quote; color: transparent; }
+
+/* ===== Utilities / small tweaks ===== */
+.muted { color: #64748b; }
+
+/* ===== Responsive spacing ===== */
+@media (min-width: 720px){
+  .card { padding: 24px; }
+  .section-pad { padding: 72px 0; }
+}
+
+@media (max-width: 480px){
+  .feedback-head { grid-template-columns: 56px 1fr; }
+  .feedback-head img { width: 56px; height: 56px; }
+}

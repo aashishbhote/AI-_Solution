@@ -1,0 +1,341 @@
+/* ====== Admin Dashboard (theme-aware) ====== */
+/* Only layout/tints here. All colors come from global tokens. */
+:root{
+  /* Sidebar width */
+  --sidebarW: 260px;
+
+  /* Tints derived from the current accent (admin group) */
+  --adminTint:  color-mix(in lab, var(--accent) 12%, transparent);
+  --adminLine:  color-mix(in lab, var(--accent) 28%, transparent);
+  --adminHover: color-mix(in lab, var(--accent) 18%, transparent);
+
+  /* Public group tints use a fixed blue hue but still mix with bg */
+  --publicBase: #0ea5e9;
+  --publicTint:  color-mix(in lab, var(--publicBase) 12%, transparent);
+  --publicLine:  color-mix(in lab, var(--publicBase) 28%, transparent);
+  --publicHover: color-mix(in lab, var(--publicBase) 18%, transparent);
+}
+
+*{ box-sizing:border-box;  }
+html,body{ height:100% }
+
+body{
+  margin:0;
+  color: var(--text);
+  background: var(--page);
+  font-family: Tahoma, sans-serif;
+  /* Content sits to the right of a fixed left sidebar */
+  padding-left: var(--sidebarW);
+}
+
+/* ====== Sidebar (vertical, left, full height) ====== */
+.admin-nav{
+  position: fixed;
+  left: 0; top: 0;
+  width: var(--sidebarW);
+  height: 100vh;
+  /* Subtle accent-tinted surface that adapts to theme */
+  background: color-mix(in lab, var(--accent) 6%, var(--page));
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 12px;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+/* Brand */
+.brand-link{
+  display:flex; align-items:center; gap:10px;
+  text-decoration:none; padding:8px; border-radius:12px;
+}
+.brand-logo{ width:34px; height:34px; object-fit:cover; border-radius:8px }
+.brand-name{ font-weight:700; color: var(--text) }
+
+/* Local burger (hidden on desktop; shown on mobile) */
+.toggle{
+  display:none;
+  margin:0 8px; padding:8px 10px;
+  border:0; border-radius:10px; background:transparent; cursor:pointer; font-size:18px;
+}
+
+/* Groups + labels */
+.nav-group{ margin-top:12px; padding:8px; border-radius:12px; }
+.group-label{
+  margin:0 4px 6px;
+  font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+  color: var(--muted);
+}
+
+/* Links stacked vertically */
+.links{ list-style:none; padding:0; margin:6px 0 0; display:flex; flex-direction:column; gap:6px; }
+.links li{ display:block }
+.links a{
+  display:block; padding:10px 12px; border-radius:10px;
+  color: var(--text); text-decoration:none;
+  transition: background .15s ease, box-shadow .15s ease;
+}
+.links a:hover,
+.links a.active{
+  background: color-mix(in lab, var(--card) 92%, var(--page));
+  box-shadow: var(--shadow-1);
+  font-weight:600;
+}
+
+/* Distinguish groups with soft tints */
+.group--admin{
+  background: var(--adminTint);
+  border: 1px solid var(--adminLine);
+  margin-bottom:14px;
+}
+.group--admin .links a:hover,
+.group--admin .links a.active{ background: var(--adminHover); }
+
+.group--public{
+  background: var(--publicTint);
+  border: 1px solid var(--publicLine);
+}
+.group--public .links a:hover,
+.group--public .links a.active{ background: var(--publicHover); }
+
+/* External arrow style */
+.links.external a{ position: relative; padding-right: 26px; }
+.links.external a .ext{
+  position:absolute; right:10px; top:50%; transform:translateY(-50%);
+  opacity:.7; font-size:14px; color: var(--publicBase);
+}
+
+/* Account block pinned to bottom */
+.account{ margin-top:auto; position:relative; }
+.avatar-btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:38px; height:38px; border-radius:9999px; border:0; cursor:pointer;
+  background: color-mix(in lab, var(--card) 86%, var(--page));
+}
+.avatar{ display:inline-grid; place-items:center; width:100%; height:100%; border-radius:inherit; font-weight:700 }
+.avatar-btn:hover{ background: color-mix(in lab, var(--card) 78%, var(--page)) }
+.avatar.large{ width:48px; height:48px; background: var(--card) }
+
+/* Dropdown inside sidebar */
+.account-menu{
+  position:absolute; left:52px; bottom:0; transform:translateY(-8px);
+  background: var(--card);
+  min-width:240px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  box-shadow: var(--shadow-1);
+  display:none; overflow:hidden; z-index:20;
+}
+.account-menu.open{ display:block }
+.account-header{ display:flex; gap:12px; padding:12px }
+.account-header .who .name{ font-weight:700 }
+.account-header .who .email{ color: var(--muted); font-size:14px }
+.account-header .who .role{ color: var(--muted); font-size:12px }
+.account-actions{ display:flex; flex-direction:column; border-top:1px solid var(--border) }
+.account-actions a{ padding:10px 12px; text-decoration:none; color: var(--text) }
+.account-actions a:hover{ background: color-mix(in lab, var(--card) 92%, var(--page)) }
+.account-actions a.logout{ color:#b91c1c }
+
+/* ====== Page content ====== */
+.wrap{ padding:28px; }
+.card{
+  background: var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:20px;
+  box-shadow: var(--shadow-1);
+}
+.muted{ color: var(--muted) }
+
+/* ===== Analytics ===== */
+.grid-analytics{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap:18px;
+  margin-top:18px;
+}
+
+/* put in admin_dashboard.css */
+/* admin_dashboard.css */
+
+.grid-two { display:grid; grid-template-columns: repeat(auto-fit,minmax(320px,1fr)); gap:16px; }
+
+/* generic chart wrapper that uses a CSS var for height */
+.chart-h { position: relative; height: var(--h, 220px); }
+@media (max-width: 640px){ .chart-h { height: var(--h-sm, 180px); } }
+
+
+/* Reusable chart-height helpers */
+.chart-xs { position:relative; height: 140px; }
+.chart-sm { position:relative; height: 180px; }
+.chart-md { position:relative; height: 240px; }
+
+/* Optional: keep legends tight */
+.card .chart canvas { display:block; }
+
+
+.kpi-row{
+  display:grid;
+  grid-template-columns: repeat(4, minmax(120px, 1fr));
+  gap:10px;
+  margin-bottom:10px;
+}
+.kpi{
+  background: color-mix(in lab, var(--card) 92%, var(--page));
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:10px 12px;
+}
+.kpi-label{ color: var(--muted); font-size:12px }
+.kpi-value{ font-size:20px; font-weight:700 }
+
+.mini-table{
+  border:1px dashed var(--border);
+  border-radius:10px;
+  overflow:hidden;
+}
+.mini-table .row{
+  display:grid; grid-template-columns: 1fr auto; gap:10px;
+  padding:10px 12px; border-top:1px solid var(--border); align-items:center;
+}
+.mini-table .row:first-child{ border-top:0 }
+.mini-table .row.head{
+  background: color-mix(in lab, var(--card) 88%, var(--page));
+  font-weight:600;
+}
+
+/* ====== Mobile: overlay sidebar ====== */
+@media (max-width: 900px){
+  body{ padding-left: 0; }
+  .toggle{ display:inline-block }
+  .admin-nav{
+    width:86vw; max-width:320px;
+    transform: translateX(-100%);
+    transition: transform .25s ease;
+    box-shadow: var(--shadow-1);
+  }
+  .admin-nav.open{ transform: translateX(0) }
+  .wrap{ padding:20px 16px }
+}
+
+/* ===== Events Overview (scoped) ===== */
+.events-overview{
+  /* local tokens */
+  --eo-bg:        transparent;
+  --eo-panel:     #ffffff;
+  --eo-ink:       #0f172a;
+  --eo-muted:     #64748b;
+  --eo-border:    #e6eaf1;
+  --eo-shadow:    0 8px 28px rgba(15,23,42,.06);
+  --eo-radius:    14px;
+
+  /* chart heights */
+  --eo-h-xs: 160px;
+  --eo-h-sm: 220px;
+  --eo-h-md: 300px;
+  --eo-h-lg: 360px;
+
+  max-width: 1280px;
+  margin: 18px auto;
+  padding: 0 16px;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0,1fr));
+  gap: 16px;
+}
+
+@media (prefers-color-scheme: dark){
+  .events-overview{
+    --eo-panel:#0f172a; --eo-ink:#e6eaf2; --eo-muted:#94a3b8;
+    --eo-border:#1f2a3b; --eo-shadow: 0 10px 30px rgba(0,0,0,.45);
+  }
+}
+
+/* Card styling (only inside overview) */
+.events-overview .card{
+  background: var(--eo-panel);
+  border: 1px solid var(--eo-border);
+  border-radius: var(--eo-radius);
+  box-shadow: var(--eo-shadow);
+  padding: 14px;
+}
+
+/* Grid spans for your existing .span-* classes */
+.events-overview .span-3{ grid-column: span 3; }
+.events-overview .span-4{ grid-column: span 4; }
+.events-overview .span-5{ grid-column: span 5; }
+.events-overview .span-7{ grid-column: span 7; }
+
+/* Responsive */
+@media (max-width: 1100px){
+  .events-overview .span-7{ grid-column: span 12; }
+  .events-overview .span-5{ grid-column: span 6; }
+  .events-overview .span-4{ grid-column: span 6; }
+  .events-overview .span-3{ grid-column: span 6; }
+}
+@media (max-width: 760px){
+  .events-overview{ grid-template-columns: 1fr; }
+  .events-overview .span-3,
+  .events-overview .span-4,
+  .events-overview .span-5,
+  .events-overview .span-7{ grid-column: span 1; }
+}
+
+/* Card headers inside overview */
+.events-overview .card-head{
+  display:flex; align-items:center; justify-content:space-between;
+  gap: 12px; padding-bottom: 8px; margin-bottom: 10px;
+  border-bottom: 1px solid var(--eo-border);
+}
+.events-overview .card-head h3{ margin:0; font-size:1.05rem; color:var(--eo-ink); }
+.events-overview .muted{ color:var(--eo-muted); }
+
+/* KPI row (Successful / Pending / Rates) */
+.events-overview .kpi-row{
+  display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 10px;
+  margin-bottom: 8px;
+}
+.events-overview .kpi{
+  border: 1px solid var(--eo-border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  background: linear-gradient(180deg, rgba(79,70,229,.06), transparent);
+}
+.events-overview .kpi-label{ color:var(--eo-muted); font-size:.82rem; }
+.events-overview .kpi-value{ color:var(--eo-ink); font-weight:700; font-size:1.25rem; margin-top:2px; }
+
+/* Chart boxes (heights & canvas sizing) */
+.events-overview .chart-xs{ height: var(--eo-h-xs); }
+.events-overview .chart-sm{ height: var(--eo-h-sm); }
+.events-overview .chart-md{ height: var(--eo-h-md); }
+.events-overview .chart-lg{ height: var(--eo-h-lg); }
+.events-overview .chart-h{  height: var(--eo-h, var(--eo-h-sm)); }
+
+.events-overview .chart-xs canvas,
+.events-overview .chart-sm canvas,
+.events-overview .chart-md canvas,
+.events-overview .chart-lg canvas,
+.events-overview .chart-h  canvas{
+  width:100% !important; height:100% !important; display:block;
+}
+
+/* Optional: a tiny select style if you add filters in headers */
+.events-overview .mini-select{
+  appearance:none; -webkit-appearance:none; -moz-appearance:none;
+  background: var(--eo-panel);
+  border: 1px solid var(--eo-border);
+  color: var(--eo-ink);
+  padding: 6px 28px 6px 10px;
+  border-radius: 10px;
+  font-size: .9rem;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--eo-muted) 50%),
+    linear-gradient(135deg, var(--eo-muted) 50%, transparent 50%);
+  background-position:
+    calc(100% - 16px) calc(50% - 3px),
+    calc(100% - 10px) calc(50% - 3px);
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+}
+.events-overview .mini-select:focus{ outline: 2px solid rgba(79,70,229,.25); }
+

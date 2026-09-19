@@ -1,0 +1,201 @@
+/* ===================================================================
+   Admin • Blogs (cards + inline editor)
+   Theme-aware (light/dark) using global tokens from admin-theme.css
+   =================================================================== */
+
+/* ---- Local derivations from global tokens ---- */
+:root{
+  /* use the global accent as “brand” and a darker mix for gradients */
+  --brand: var(--accent);
+  --brand-2: color-mix(in lab, var(--accent) 72%, #000);
+  --radius: 14px;
+}
+
+/* ---- Page wrapper ---- */
+body{ color: var(--text); background: var(--page);   font-family: Tahoma, sans-serif;
+}
+.wrap{
+  padding:28px clamp(16px,4vw,36px);
+  max-width:1200px;
+  margin-inline:auto;
+}
+h1{ margin:.2rem 0 1rem; font-size:clamp(24px,2.6vw,32px); }
+.muted{ color: var(--muted); }
+
+/* ---- Cards ---- */
+.card{
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: var(--shadow-1);
+  transition: transform .08s ease, box-shadow .18s ease;
+}
+.card:hover{ transform: translateY(-2px); box-shadow: var(--shadow-2); }
+
+/* success / error notes stay readable in both themes */
+.card.success{
+  border-color: color-mix(in lab, #10b981 55%, var(--border));
+  background: color-mix(in lab, #ecfdf5 70%, var(--card));
+}
+.card.error{
+  border-color: color-mix(in lab, #ef4444 55%, var(--border));
+  background: color-mix(in lab, #fef2f2 70%, var(--card));
+}
+
+/* ---- Buttons (shared) ---- */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  padding:10px 14px; border-radius:9999px; border:1px solid transparent;
+  background: linear-gradient(180deg, var(--brand), var(--brand-2));
+  color:#fff; font-weight:800; letter-spacing:.2px; cursor:pointer;
+  box-shadow: 0 6px 16px color-mix(in lab, var(--accent) 28%, transparent);
+  transition: transform .06s ease, box-shadow .15s ease, filter .15s ease;
+}
+.btn:hover{ transform:translateY(-1px); filter:saturate(1.05); }
+.btn:active{ transform:translateY(0); }
+.btn.small{ padding:7px 12px; font-size:14px; }
+
+/* neutral/ghost button adapts to theme tokens */
+.btn.ghost{
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 10px color-mix(in lab, var(--accent) 10%, transparent);
+}
+.btn.ghost:hover{
+  background: color-mix(in lab, var(--card) 92%, var(--page));
+}
+
+/* destructive */
+.btn.warn{
+  background:#b91c1c; border-radius:12px;
+  box-shadow: 0 8px 18px color-mix(in lab, #b91c1c 28%, transparent);
+}
+.btn.warn:hover{ background:#991b1b; }
+
+/* ---- Toolbar ---- */
+.admin-toolbar{
+  display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+  margin-bottom:.4rem;
+}
+
+/* ---- Status pill ---- */
+.status-pill{
+  display:inline-flex; align-items:center;
+  padding:3px 10px; border-radius:9999px; border:1px solid; font-size:12px; font-weight:700;
+}
+.status-pill.on{
+  color:#166534;
+  background: color-mix(in lab, #ecfdf5 70%, var(--card));
+  border-color: color-mix(in lab, #86efac 70%, var(--border));
+}
+.status-pill.off{
+  color:#92400e;
+  background: color-mix(in lab, #fffbeb 70%, var(--card));
+  border-color: color-mix(in lab, #fcd34d 70%, var(--border));
+}
+
+/* ---- Add Blog form ---- */
+.add-card{
+  background: linear-gradient(180deg, var(--card), color-mix(in lab, var(--card) 86%, var(--page)));
+  border: 1px dashed color-mix(in lab, var(--accent) 40%, transparent);
+}
+
+.admin-form{ display:grid; gap:12px; }
+.admin-form .grid{ display:grid; gap:12px; grid-template-columns:1fr; }
+@media (min-width:760px){
+  .admin-form .grid{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+
+.admin-form label{ font-weight:600; color: var(--text); }
+
+.admin-form input[type="text"],
+.admin-form input[type="number"],
+.admin-form input[type="datetime-local"],
+.admin-form textarea,
+.admin-form select{
+  width:100%; padding:10px 12px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background: var(--card);
+  color: var(--text);
+  font: inherit;
+  box-shadow: 0 1px 0 color-mix(in lab, #fff 40%, transparent) inset;
+  transition:border-color .15s ease, box-shadow .15s ease, background-color .15s ease, color .15s ease;
+}
+.admin-form textarea{ resize:vertical; }
+.admin-form textarea.big{
+  min-height:200px;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  line-height:1.5;
+}
+.admin-form input:focus,
+.admin-form textarea:focus,
+.admin-form select:focus{
+  outline:none;
+  border-color: var(--accent);
+  box-shadow: var(--ring, 0 0 0 3px color-mix(in lab, var(--accent) 35%, transparent));
+}
+
+/* ---- Meta row + category pill ---- */
+.post-meta{ margin:.25rem 0 .75rem; color: var(--muted); font-size:.95rem; }
+
+/* category chip that adapts to both themes */
+.pill-cat{
+  display:inline-block; font-size:.75rem; padding:.2rem .5rem; border-radius:999px;
+  background: color-mix(in lab, var(--accent) 14%, var(--page));
+  color: color-mix(in lab, var(--accent) 80%, var(--text));
+  border: 1px solid color-mix(in lab, var(--accent) 28%, transparent);
+  margin-left:.35rem;
+}
+
+/* ---- Content preview <details> ---- */
+details > summary{
+  cursor:pointer; font-weight:700; color: color-mix(in lab, var(--accent) 80%, var(--text));
+  list-style:none;
+}
+details[open]{ border-top:1px dashed var(--border); padding-top:.6rem; }
+
+/* theme-aware code preview surface */
+.preview-box{
+  margin-top:.5rem; padding:.75rem;
+  background: color-mix(in lab, var(--page) 10%, #0e1724);
+  border:1px solid color-mix(in lab, var(--border) 70%, transparent);
+  border-radius:12px; overflow:auto;
+}
+:root[data-theme="dark"] .preview-box,
+:root[data-theme="auto"][data-resolved-theme="dark"] .preview-box{
+  background: color-mix(in lab, #0e1724 85%, var(--card));
+  border-color: color-mix(in lab, var(--border) 80%, transparent);
+}
+.preview-box pre{
+  white-space:pre-wrap; margin:0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size:.95rem; color: color-mix(in lab, #e5edff 85%, var(--text));
+}
+
+/* ---- Headings inside card header ---- */
+.card-head h3{
+  margin:0;
+  font-size:clamp(18px,2.1vw,20px);
+  font-weight:800;
+  color: color-mix(in lab, var(--accent) 80%, var(--text));
+  display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+}
+
+/* ---- Utilities ---- */
+.row{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+.link{ color: color-mix(in lab, var(--accent) 85%, var(--text)); text-decoration:none; }
+.link:hover{ text-decoration:underline; }
+
+/* ---- Focus a11y ---- */
+button:focus-visible, a:focus-visible, summary:focus-visible,
+input:focus-visible, textarea:focus-visible, select:focus-visible{
+  outline:none;
+  border-color: var(--accent);
+  box-shadow: var(--ring, 0 0 0 3px color-mix(in lab, var(--accent) 35%, transparent));
+}
+
+/* ---- Brand text (blogs page) ---- */
+.brand-name{ font-weight:600; letter-spacing:.2px; color: var(--text); }

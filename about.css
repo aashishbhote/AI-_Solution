@@ -1,0 +1,102 @@
+/* ======= HERO SLIDES ======= */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: Tahoma, sans-serif; }
+.slideshow-container{
+  position:relative; width:100%; height:100vh; overflow:hidden;
+}
+.slide{ display:none; position:absolute; inset:0; }
+.slide img{ width:100%; height:100%; object-fit:cover; filter:brightness(80%); }
+
+.part1{
+  position:absolute; top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  color:#fff; text-shadow:0 2px 6px rgba(0,0,0,.7);
+}
+.p1_one{
+  font-size:50px; font-weight:700; text-align:center;
+  background:linear-gradient(90deg,#007BFF,#00C9FF,#92FE9D);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+.p2_two{ font-size:24px; margin-top:10px; }
+
+/* ======= DOTS (scoped) ======= */
+.dots{ position:relative; bottom:40px; text-align:center; }
+.dot{
+  cursor:pointer; height:12px; width:12px; margin:0 5px; background:#bbb;
+  border-radius:50%; display:inline-block; transition:background-color .3s;
+}
+/* FIX: scope .active to dots only */
+.dots .dot.active, .dots .dot:hover{ background:#717171; }
+
+/* ======= PAGE HERO ======= */
+.page-hero{
+  padding:40px 20px; background:transparent; color:#131212;
+  border-bottom:1px solid rgba(255,255,255,.2); text-align:center; position:relative; overflow:hidden;
+}
+.page-hero::before{
+  content:""; position:absolute; inset:0;
+  background:url('your-background.png') center/cover no-repeat; opacity:.15; pointer-events:none;
+}
+.page-hero h1{ margin:.25rem 0 .5rem; font-size:2.5rem; font-weight:700; letter-spacing:.5px; }
+.page-hero .sub{ color:rgba(12,12,12,.9); font-size:1.1rem; margin:0; }
+
+.breadcrumbs{
+  display:inline-block; margin-bottom:1rem; font-size:.95rem; color:rgba(9,9,9,.7);
+  background:rgba(0,0,0,.1); padding:4px 10px; border-radius:20px;
+}
+.breadcrumbs a{ color:#0d0d0d; text-decoration:none; font-weight:500; font-size:1rem; }
+.breadcrumbs a:hover{ text-decoration:underline; }
+.breadcrumbs span{ margin:0 .4rem; font-weight:400; font-size:1rem; color:rgba(8,8,8,.6); }
+
+/* ======= PILLARS ======= */
+/* FIX: scope p to .pillar_container only */
+.pillar_container h1, .pillar_container p{ text-align:center; }
+.pillar_container h1{ color:navy; margin-top:2rem; }
+.pillar_container p{ color:navy; margin-top:1.5rem; }
+.pillar_container img{
+  border-top-left-radius:3rem; margin-top:2rem; margin-left:10rem; width:80%;
+}
+
+/* ======= VALUES GRID ======= */
+.flex_container{
+  margin:3rem; display:grid; grid-template-columns:repeat(2,1fr); gap:2rem;
+}
+.flex{
+  padding:20px; border:2px solid grey; border-radius:16px;
+  width:100%;            /* FIX: was 100vh */
+  height:auto; line-height:2;
+}
+.flex h2{ font-size:20px; font-weight:100; }
+.flex p{ margin-top:15px; text-align:left; }
+
+/* ======= LEADERS ======= */
+.leader_container{ max-width:1200px; margin:60px auto; padding:20px; text-align:center; }
+.leader_container h1{ font-size:2.2rem; font-weight:700; margin-bottom:16px; color:#222; }
+.leader_container p{ max-width:850px; margin:0 auto 40px; font-size:1.5rem; line-height:1.6; color:#555; }
+
+/* Tabs */
+.team_types{
+  display:flex; justify-content:center; gap:40px; margin:30px auto; padding-bottom:12px; border-bottom:2px solid #ddd;
+}
+.team_types a{
+  font-weight:600; font-size:1.05rem; text-decoration:none; color:#222; padding:6px 10px;
+  border-bottom:2px solid transparent; transition:color .3s, border-color .3s;
+  background:none; outline:none; box-shadow:none;
+}
+.team_types a:hover{ color:#444; }
+.team_types a.active{ color:darkorange; border-bottom:2px solid darkorange; background:none; }
+
+/* Team grid */
+.teamimg_container{ margin-top:50px; }
+.teamimg_container h1{
+  font-size:1.8rem; font-weight:700; margin-bottom:30px; color:#222; border-bottom:2px solid #ccc;
+  display:inline-block; padding-bottom:6px;
+}
+.image_section{ display:grid; grid-template-columns:repeat(3, 2fr); gap:40px; justify-items:center; }
+.member{ text-align:center; max-width:220px; }
+.directors{
+  width:250px; height:260px; object-fit:cover; border-radius:12px; border:3px solid #eee;
+  transition:transform .3s, box-shadow .3s;
+}
+.name{ margin-top:12px; font-weight:600; font-size:1.1rem; color:#222; }
+.role{ margin-top:4px; font-size:.95rem; color:#666; font-style:italic; }

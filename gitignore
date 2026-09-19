@@ -1,0 +1,16 @@
+# Secrets: never commit these
+ai/secrets.php
+db_connection.php
+mail_config.php
+
+# Logs (otp-codes.log holds login codes)
+*.log
+
+# Files uploaded by users through the admin panel
+uploads/
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
